@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class='container'>
+        <div class='row' id='header'>
+            <div class='col' id='logo'>
+            </div>
+            <div id='nav_wrapper' class='col6'>
+                <ul id='nav_bar'>
+                    <li><a href='/dashboard/admin'><h3>Dashboard</h3></a></li>
+                    <li><a href='/users/edits/'><h3>Profile</h3></a></li>
+                </ul>
+            </div>
+            <div class='c2' id='right'>
+                <a href='/logoff'><h3>Log Off</h3></a>
+            </div>
+        </div>
+    </div>
+    <div class='container'>
+                <h2>Manage Users</h2>
+            </div>
+            <div id='add_new' class='co8'>
+                <a href='/users/new/'><button type="button" class="bprimary">Add new</button></a>
+            </div>
+        </div>
+            <table class='info'>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>email</th>
+                <th>created_at</th>
+                <th>user_level</th>
+                <th>action</th>
+              </tr>
+            <tbody>
+            {% for user in users %}
+              <tr>
+                <td>{{user.id}}</td>
+                <td><a href='/users/show/{{user.id}}'>{{user.first_name}} {{user.last_name}}</a></td>
+                <td>{{user.email}}</td>
+                <td>{{user.created_at}}</td>
+                <td>{{user.user_level}}</td>
+                <td><a href="{% url 'user_app:edit_admin' user.id %}">edit</a>
+                    <a href="{% url 'user_app:show' user.id %}">remove</a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% if remove %}
+            <div id="confirmation">
+                <h3>Are you sure you want to remove this user?</h3>
+                    <a class="remove" href= '/remove/{{del_user.id}}'>Yes. Remove User</a>
+                    <a class="remove" href='/hide/'>No</a>
+            </div>
+    {% endif %}
+</body>
+</html>
